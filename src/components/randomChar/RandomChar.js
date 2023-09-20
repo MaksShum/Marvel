@@ -24,12 +24,12 @@ class RandomChar extends Component {
   componentWillUnmount(){
 
   }
-
+  
   errorMessage = () => {
     this.setState({ error: true, loading: false});
   };
  onLoading = () => {
-    this.setState({loading: true})
+    this.setState({loading: true,error: false})
  }
 
   updateChar = () => {
@@ -42,10 +42,6 @@ class RandomChar extends Component {
       })
       .catch(this.errorMessage);
   };
-  // tryChar = () => {
-  //   this.onLoading();
-  //   this.updateChar()
-  // }
   wievChar = (props) => { 
     return (
       <div className="randomchar__block">
