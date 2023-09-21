@@ -31,7 +31,7 @@ class CharList extends Component {
             loading: false
         })
     }
-
+    
     getListChars = (list) => {
         const contents = list.map(item => {
             const picture = item.thumbnail === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg" 
