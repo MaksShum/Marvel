@@ -13,6 +13,7 @@ class App extends Component {
     }
     onSelectChar = (id) => {
         this.setState({selectedChar: id})
+        
     }
 
     render() {

@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React,{ Component } from 'react';
 import './charList.scss';
 import Spinner from '../spinner/Spinner';
 import Error from '../error/Error';
@@ -15,6 +15,7 @@ class CharList extends Component {
             loadingButton: true,
             end: false
         }
+        this.myRef = React.createRef()
 
         this.marvelService.getAllCharacters()
             .then(this.onCharListLoaded)
@@ -48,23 +49,39 @@ class CharList extends Component {
             end: ended
         }))
     }
-
+    
+    selectChar = (ref) => {
+        this.myRef.current.style = {}
+    }
     onError = () => {
         this.setState({
             error: true,
             loading: false
         })
     }
-    
+    itemRefs = [];
+
+    setRef = (ref) => {
+        this.itemRefs.push(ref);
+    }
+    focusOnItem = (id) => {
+        this.itemRefs.forEach(item => item.classList.remove('char__item_selected'));
+        this.itemRefs[id].classList.add('char__item_selected');
+        this.itemRefs[id].focus();
+    }
+
     getListChars = (list) => {
-        const contents = list.map(item => {
+        const contents = list.map((item,i)=> {
             const picture = item.thumbnail === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg" 
   ? {objectFit: 'contain'}
   : null 
         return (
             <li className="char__item"
                 key={item.id}
-                onClick={() => this.props.onSelectChar(item.id)}>
+                ref={this.setRef}
+                onClick={() => {this.props.onSelectChar(item.id);
+                    this.focusOnItem(i);}}
+                >
                     <img src={item.thumbnail} alt="abyss" style={picture}/>
                     <div className="char__name">{item.name}</div>
                 </li>
