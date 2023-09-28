@@ -12,6 +12,10 @@ class MarvelService {
         }
         return await res.json()
     }
+    getAllComics = async () => {
+        const res = await this.getResource(`${this._apiBase}comics?limit=8&${this._apiKey}`)
+        return res.data.results.map(this._getComicsObj)
+    }
     getAllCharacters = async (offset = this._apiOffset) => {
         const res = await this.getResource(`${this._apiBase}characters?limit=9&offset=${offset}&${this._apiKey}`)
         return res.data.results.map(this._getCharacterObj)
@@ -30,6 +34,14 @@ class MarvelService {
             homepage:char.urls[0].url,
             wiki:char.urls[1].url,
             comics: char.comics.items
+        }
+    }
+    _getComicsObj = (char) => {
+        return {
+            id: char.id,
+            title: char.title,
+            thumbnail:char.thumbnail.path + '.' + char.thumbnail.extension,
+            price: char.prices[0].price
         }
     }
 }
