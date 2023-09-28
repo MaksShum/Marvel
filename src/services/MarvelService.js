@@ -12,8 +12,8 @@ class MarvelService {
         }
         return await res.json()
     }
-    getAllComics = async () => {
-        const res = await this.getResource(`${this._apiBase}comics?limit=8&${this._apiKey}`)
+    getAllComics = async (offset = this._apiOffset) => {
+        const res = await this.getResource(`${this._apiBase}comics?limit=8&offset=${offset}&${this._apiKey}`)
         return res.data.results.map(this._getComicsObj)
     }
     getAllCharacters = async (offset = this._apiOffset) => {

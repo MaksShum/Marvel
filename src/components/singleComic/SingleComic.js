@@ -1,5 +1,6 @@
 import './singleComic.scss';
 import xMen from '../../resources/img/x-men.png';
+import { Link } from 'react-router-dom';
 
 const SingleComic = () => {
     return (
@@ -12,7 +13,7 @@ const SingleComic = () => {
                 <p className="single-comic__descr">Language: en-us</p>
                 <div className="single-comic__price">9.99$</div>
             </div>
-            <a href="#" className="single-comic__back">Back to all</a>
+            <Link exact to="/comics" className="single-comic__back">Back to all</Link>
         </div>
     )
 }
