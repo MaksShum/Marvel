@@ -1,43 +1,38 @@
-import { Component } from "react";
+import { useState } from "react";
 import AppHeader from "../appHeader/AppHeader";
 import RandomChar from "../randomChar/RandomChar";
 import CharList from "../charList/CharList";
 import CharInfo from "../charInfo/CharInfo";
 import ErrorBoundary from "../errorBoundary/ErrorBoundary";
 
-import decoration from '../../resources/img/vision.png';
+import decoration from "../../resources/img/vision.png";
 
-class App extends Component {
-    state = {
-        selectedChar : null
-    }
-    onSelectChar = (id) => {
-        this.setState({selectedChar: id})
-        
-    }
+const App = () => {
+  const [selectedChar, setSelectedChar] = useState(null);
 
-    render() {
-        return (
-            <div className="app">
-                <AppHeader/>
-                <main>
-                    <ErrorBoundary>    
-                        <RandomChar/>
-                    </ErrorBoundary>
-                    <div className="char__content">
-                    <ErrorBoundary>
-                        <CharList onSelectChar={this.onSelectChar}/>
-                    </ErrorBoundary>
-                    <ErrorBoundary>
-                        <CharInfo charId={this.state.selectedChar}/>
-                    </ErrorBoundary>
-                        
-                    </div>
-                    <img className="bg-decoration" src={decoration} alt="vision"/>
-                </main>
-            </div>
-        )
-    }
-}
+  const onSelectChar = (id) => {
+    setSelectedChar(id);
+  };
+
+  return (
+    <div className="app">
+      <AppHeader />
+      <main>
+        <ErrorBoundary>
+          <RandomChar />
+        </ErrorBoundary>
+        <div className="char__content">
+          <ErrorBoundary>
+            <CharList onSelectChar={onSelectChar} />
+          </ErrorBoundary>
+          <ErrorBoundary>
+            <CharInfo charId={selectedChar} />
+          </ErrorBoundary>
+        </div>
+        <img className="bg-decoration" src={decoration} alt="vision" />
+      </main>
+    </div>
+  );
+};
 
 export default App;
