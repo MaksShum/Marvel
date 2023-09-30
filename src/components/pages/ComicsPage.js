@@ -8,7 +8,7 @@ const ComicsPage = () => {
     <Fragment>
       <ErrorBoundary>
         <AppBanner />
-        <ComicsList />
+        <ComicsList/>
       </ErrorBoundary>
     </Fragment>
   );

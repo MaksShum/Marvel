@@ -6,7 +6,7 @@ const SinglePage = () => {
   return (
     <Fragment>
       <AppBanner />
-      <SingleComic />
+      <SingleComic/>
     </Fragment>
   );
 };

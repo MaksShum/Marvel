@@ -5,15 +5,15 @@ const AppHeader = () => {
     return (
         <header className="app__header">
             <h1 className="app__title">
-                <Link exact="true" to="/">
+                <Link to="/">
                     <span>Marvel</span> information portal
                 </Link>
             </h1>
             <nav className="app__menu">
                 <ul>
-                    <li><NavLink exact="true" activeStyle={{'color': '#9f0013'}} to="/">Characters</NavLink></li>
+                    <li><NavLink end style={({isActive}) => ({color: isActive? '#9f0013' : 'black'})} to="/">Characters</NavLink></li>
                     /
-                    <li><NavLink exact="true" activeStyle={{'color': '#9f0013'}} to="/comics">Comics</NavLink></li>
+                    <li><NavLink end style={({isActive}) => ({color: isActive? '#9f0013' : 'black'})} to="/comics">Comics</NavLink></li>
                 </ul>
             </nav>
         </header>

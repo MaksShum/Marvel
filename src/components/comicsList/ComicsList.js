@@ -6,7 +6,7 @@ import Error from '../error/Error';
 import Spinner from '../spinner/Spinner';
 
 
-const ComicsList = () => {
+const ComicsList = (props) => {
     const [charList,setCharlist] = useState([])
     const [error,setError] = useState(false)
     const [loading,setLoading] = useState(true)
@@ -42,7 +42,8 @@ const ComicsList = () => {
             return (
                 <li className="comics__item"
                     key={i}>
-                    <Link exact="true" to="/singlePage">
+                    <Link to={`/singlePage/${item.id}`}
+                        >
                         <img 
                         src={item.thumbnail} 
                         alt={item.title} 
