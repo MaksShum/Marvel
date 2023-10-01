@@ -4,6 +4,7 @@ import Skeleton from "../skeleton/Skeleton";
 import Error from "../error/Error";
 import MarvelService from "../../services/MarvelService";
 import Spinner from "../spinner/Spinner";
+import {Link} from 'react-router-dom'
 
 const CharInfo = (props) => {
   const [char, setChar] = useState(null);
@@ -40,7 +41,7 @@ const CharInfo = (props) => {
     setError(true);
     setLoading(false);
   };
-
+  console.log('a')
   const View = ({ char }) => {
     const { name, discription, wiki, thumbnail, homepage, comics } = char;
     const picture =
@@ -48,6 +49,7 @@ const CharInfo = (props) => {
       "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
         ? { objectFit: "contain" }
         : { objectFit: "cover" };
+        console.log(comics)
     return (
       <Fragment>
         <div className="char__basics">
@@ -71,9 +73,9 @@ const CharInfo = (props) => {
           {comics
             .map((item, i) => {
               return (
-                <li className="char__comics-item" key={i}>
+                <Link to={`/singlePage/${item.resourceURI.split('/').pop()}`}className="char__comics-item" key={i}>
                   {item.name}
-                </li>
+                </Link>
               );
             })
             .slice(0, 9)}

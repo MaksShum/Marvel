@@ -12,6 +12,7 @@ const ComicsList = (props) => {
     const [loading,setLoading] = useState(true)
     const [offset,setOffset] = useState(200)
     const [loadingButton,setLoadingButton] = useState(true)
+    const [end,setEnd] = useState(false)
 
     const marvelService =  new MarvelService()
     
@@ -25,10 +26,15 @@ const ComicsList = (props) => {
             
     }
     const onlistLoading = (newCharList) => {
+        let ended = false;
+        if (newCharList.length < 8) {
+          ended = true;
+        }
         setCharlist(charList => [...charList,...newCharList])
         setLoading(false)
         setOffset(offset => offset + 8)
         setLoadingButton(false);
+        setEnd( ended);
     }
     const onError = () => {
         setError(true)
@@ -61,6 +67,8 @@ const ComicsList = (props) => {
     const spinner = loading? <Spinner/> : null
     const errorMessage = error? <Error/> : null
     const content = (loading || error)? null : items
+
+    const classButton = end ? { display: "none" } : { display: "block" };
     return (
         <div className="comics__list">
                 {spinner}
@@ -68,7 +76,8 @@ const ComicsList = (props) => {
                 {content}
             <button className="button button__main button__long"
             onClick={request}
-            disabled={loadingButton}>
+            disabled={loadingButton}
+            style={classButton}>
                 <div className="inner">load more</div>
             </button>
         </div>

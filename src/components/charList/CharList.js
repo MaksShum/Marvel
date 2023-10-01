@@ -65,12 +65,19 @@ const CharList = (props) => {
       return (
         <li
           className="char__item"
+          tabIndex={0}
           key={i}
-          ref={(el) => (itemRefs.current[i] = el)}
+          ref={(el) => (itemRefs.current[i] = el)}         
           onClick={() => {
             props.onSelectChar(item.id);
             focusOnItem(i);
           }}
+          onKeyPress={(e) => {
+            if (e.key === ' ' || e.key === "Enter") {
+                props.onSelectChar(item.id);
+                focusOnItem(i);
+            }}}
+          
         >
           <img src={item.thumbnail} alt="abyss" style={picture} />
           <div className="char__name">{item.name}</div>
