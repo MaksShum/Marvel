@@ -41,7 +41,6 @@ const CharInfo = (props) => {
     setError(true);
     setLoading(false);
   };
-  console.log('a')
   const View = ({ char }) => {
     const { name, discription, wiki, thumbnail, homepage, comics } = char;
     const picture =
