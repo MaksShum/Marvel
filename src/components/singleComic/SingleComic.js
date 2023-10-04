@@ -52,7 +52,7 @@ const SingleComic = () => {
                 <p className="single-comic__descr">Language: en-us</p>
                 <div className="single-comic__price">{comic.price}$</div>
             </div>
-            <Link to="/comics" className="single-comic__back">Back to all</Link>
+            <Link to="/comics" className="single-comic__back">Back to all comics</Link>
         
         </Fragment>
     )

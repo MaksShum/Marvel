@@ -3,6 +3,22 @@ import "./charList.scss";
 import Spinner from "../spinner/Spinner";
 import Error from "../error/Error";
 import MarvelService from "../../services/MarvelService";
+import { Transition } from 'react-transition-group';
+
+const duration = 300;
+
+const defaultStyle = {
+  transition: `all ${duration}ms ease-in-out`,
+  opacity: 0,
+  visibility: 'hidden'
+}
+
+const transitionStyles = {
+  entering: { opacity: 1,visibility: 'visible' },
+  entered:  { opacity: 1,visibility: 'visible' },
+  exiting:  { opacity: 0,visibility: 'hidden' },
+  exited:  { opacity: 0,visibility: 'hidden' },
+};
 
 const CharList = (props) => {
   const [charList, setCharList] = useState([]);
@@ -11,6 +27,7 @@ const CharList = (props) => {
   const [offset, setOffset] = useState(200);
   const [loadingButton, setLoadingButton] = useState(true);
   const [end, setEnd] = useState(false);
+  const [trans,setTrans] = useState(false)
 
   const marvelService = new MarvelService();
   useEffect(() => {
@@ -18,6 +35,7 @@ const CharList = (props) => {
   }, []);
 
   const onRequest = (offset) => {
+    setTrans(true)
     onloadingButton();
     marvelService
       .getAllCharacters(offset)
@@ -38,6 +56,9 @@ const CharList = (props) => {
     setOffset(offset => offset + 9);
     setLoadingButton(false);
     setEnd(end => ended);
+    
+    
+    
   };
 
   const onError = () => {
@@ -96,19 +117,28 @@ const CharList = (props) => {
   const content = !(loading || error) ? items : null;
 
   return (
-    <div className="char__list">
-      {errorMessage}
-      {spinner}
-      {content}
-      <button
-        className="button button__main button__long"
-        onClick={() => onRequest(offset)}
-        disabled={loadingButton}
-        style={classButton}
-      >
-        <div className="inner">load more</div>
-      </button>
-    </div>
+    <Transition  in={trans} timeout={duration}>
+      {state => (
+        <div className="char__list"
+        style={{
+          ...defaultStyle,
+          ...transitionStyles[state]
+        }}>
+            {errorMessage}
+            {spinner}
+            {content}
+            <button
+              className="button button__main button__long"
+              onClick={() => onRequest(offset)}
+              disabled={loadingButton}
+              style={classButton}
+            >
+              <div className="inner">load more</div>
+            </button>
+        </div>
+      )}
+    </Transition>
+    
   );
 };
 
